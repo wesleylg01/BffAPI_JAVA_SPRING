@@ -1,11 +1,16 @@
 package com.wgluciano.bffapi.service;
 
+import com.wgluciano.bffapi.dto.CreateUser;
 import com.wgluciano.bffapi.dto.ExternalUserDTO;
 import com.wgluciano.bffapi.dto.UserResponseDTO;
 import com.wgluciano.bffapi.integration.ExternalUserClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,5 +42,9 @@ public class UserService {
         dto.setEmail(user.getEmail());
         dto.setEndereco (user.getAddress().getCity() + " - " +user.getAddress().getStreet() + " "+user.getAddress().getSuite());
         return dto;
+    }
+
+    public UserResponseDTO create(CreateUser request){
+        return externalUserClient.create((request));
     }
 }
